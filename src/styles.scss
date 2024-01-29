@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+/* Estilos básicos */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #333;
+}
+
+/* Estilos para cabeçalhos */
+h1, h2, h3 {
+  color: #333;
+}
+
+/* Botões */
+button {
+  cursor: pointer;
+}
+
+/* Utilitários de Flexbox */
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Personalizações do PrimeNG podem ser adicionadas aqui */
