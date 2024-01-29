@@ -7,8 +7,7 @@ import { PrimeNGConfig } from 'primeng/api';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   title = 'stock-front';
@@ -16,6 +15,6 @@ export class AppComponent implements OnInit {
   constructor(private primengConfig: PrimeNGConfig) {}
 
     ngOnInit() {
-        this.primengConfig.ripple = true;
+      this.primengConfig.ripple = true;
     }
 }
