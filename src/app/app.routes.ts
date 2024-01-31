@@ -15,16 +15,16 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () => import('./components/dashboard/page/dashboard-home/dashboard-home.component').then(m => m.DashboardHomeComponent),
-    //canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
+    canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
   },
   {
     path: 'products',
     loadComponent: () => import('./components/products/page/products-home/products-home.component').then(m => m.ProductsHomeComponent),
-    //canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
+    canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
   },
   {
     path: 'categories',
     loadComponent: () => import('./components/categories/page/categories-home/categories-home.component').then(m => m.CategoriesHomeComponent),
-    //canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
+    canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
   }
 ];

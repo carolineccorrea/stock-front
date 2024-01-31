@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
 import { CategoryFormComponent } from '../../components/category-form/category-form.component';
@@ -12,14 +11,18 @@ import { ToolbarNavigationComponent } from '../../../../shared/toolbar-navigatio
 import { CategoriesTableComponent } from '../../components/categories-table/categories-table.component';
 import { CardModule } from 'primeng/card';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-categories-home',
   templateUrl: './categories-home.component.html',
   standalone: true,
-  imports: [CategoriesTableComponent,
-           ToolbarNavigationComponent,
-           HttpClientModule],
+  imports: [
+    CategoriesTableComponent,
+    ToolbarNavigationComponent,
+    HttpClientModule
+  ],
+  providers: [ConfirmationService],
   styleUrls: [],
 })
 export class CategoriesHomeComponent implements OnInit, OnDestroy {
@@ -30,7 +33,6 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
   constructor(
     private categoriesService: CategoriesService,
     private dialogService: DialogService,
-    private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router
   ) {}
@@ -51,12 +53,7 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.log(err);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erro',
-            detail: 'Erro ao buscar categorias!',
-            life: 3000,
-          });
+          console.log('Erro ao buscar categorias')
           this.router.navigate(['/dashboard']);
         },
       });
@@ -83,22 +80,12 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (response) => {
             this.getAllCategories();
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Sucesso',
-              detail: 'Categoria removida com sucesso!',
-              life: 3000,
-            });
+            console.log('categoria removida com sucesso')
           },
           error: (err) => {
             console.log(err);
             this.getAllCategories();
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erro',
-              detail: 'Erro ao remover categoria!',
-              life: 3000,
-            });
+            console.log(' erro ao remover categorias ')
           },
         });
 

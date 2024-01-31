@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProductFormComponent } from '../../components/products/components/product-form/product-form.component';
@@ -13,7 +13,7 @@ import { ToolbarModule } from 'primeng/toolbar';
   selector: 'app-toolbar-navigation',
   templateUrl: './toolbar-navigation.component.html',
   standalone: true,
-  imports: [CommonModule,ButtonModule,ToolbarModule],
+  imports: [CommonModule,ButtonModule,ToolbarModule,RouterModule],
   styleUrls: [],
 })
 export class ToolbarNavigationComponent {

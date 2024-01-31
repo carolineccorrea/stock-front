@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: './category-form.component.html',
   standalone: true,
   imports: [CommonModule,FormsModule,ReactiveFormsModule,ButtonModule,HttpClientModule],
+  providers: [MessageService],
   styleUrls: [],
 })
 export class CategoryFormComponent implements OnInit, OnDestroy {
