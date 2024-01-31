@@ -6,7 +6,7 @@ import { GetAllProductsResponse } from '../../../../models/interfaces/products/r
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
+import { MessageService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -14,17 +14,15 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { ShortenPipe } from '../../../../shared/pipes/shorten/shorten.pipe';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
-  standalone:true,
+  standalone: true,
   imports: [
     CommonModule,
     CardModule,
@@ -40,8 +38,11 @@ import { ShortenPipe } from '../../../../shared/pipes/shorten/shorten.pipe';
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
-    ShortenPipe ],
-  styleUrls: [],
+    ShortenPipe,
+    ToastModule
+  ],
+    providers: [MessageService],
+    styleUrls: [],
 })
 export class ProductsTableComponent {
   @Input() products: Array<GetAllProductsResponse> = [];

@@ -28,6 +28,7 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 import { PRODUCTS_ROUTES } from '../../products.routing';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-product-form',
@@ -51,7 +52,8 @@ import { PRODUCTS_ROUTES } from '../../products.routing';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule
   ],
   providers: [MessageService],
   styleUrls: [],
