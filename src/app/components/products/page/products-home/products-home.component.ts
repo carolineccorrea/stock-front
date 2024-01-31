@@ -13,6 +13,7 @@ import { ProductsTableComponent } from '../../components/products-table/products
 import { ToolbarNavigationComponent } from '../../../../shared/toolbar-navigation/toolbar-navigation.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-products-home',
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule, 
     ProductsTableComponent,
     ToolbarNavigationComponent, 
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ToastModule
   ],
     providers: [MessageService],
   styleUrls: [],
