@@ -10,7 +10,6 @@ import { GetCategoriesResponse } from '../../../../models/interfaces/categories/
 import { EventAction } from '../../../../models/interfaces/products/event/EventAction';
 import { CreateProductRequest } from '../../../../models/interfaces/products/request/CreateProductRequest';
 import { EditProductRequest } from '../../../../models/interfaces/products/request/EditProductRequest';
-import { SaleProductRequest } from '../../../../models/interfaces/products/request/SaleProductRequest';
 import { GetAllProductsResponse } from '../../../../models/interfaces/products/response/GetAllProductsResponse';
 import { CategoriesService } from '../../../../services/categories/categories.service';
 import { ProductsService } from '../../../../services/products/products.service';
@@ -29,6 +28,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 import { PRODUCTS_ROUTES } from '../../products.routing';
 import { ToastModule } from 'primeng/toast';
+import { PanelModule } from 'primeng/panel';
+import { Product, SaleProductsRequest } from '../../../../models/interfaces/products/request/SaleProductsRequest';
 
 @Component({
   selector: 'app-product-form',
@@ -53,11 +54,13 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
-    ToastModule
+    ToastModule,
+    PanelModule
   ],
   providers: [MessageService],
   styleUrls: [],
 })
+
 export class ProductFormComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
   public categoriesDatas: Array<GetCategoriesResponse> = [];
@@ -86,6 +89,9 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     product_id: ['', Validators.required],
   });
   public saleProductSelected!: GetAllProductsResponse;
+
+  public productsToSell: Product[] = [];
+
 
   public addProductAction = ProductEvent.ADD_PRODUCT_EVENT;
   public editProductAction = ProductEvent.EDIT_PRODUCT_EVENT;
@@ -210,43 +216,62 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleSubmitSaleProduct(): void {
-    if (this.saleProductForm?.value && this.saleProductForm?.valid) {
-      const requestDatas: SaleProductRequest = {
-        amount: this.saleProductForm.value?.amount as number,
-        product_id: this.saleProductForm.value?.product_id as string,
-      };
+  //public productsToSell: Product[] = [];
 
-      this.productsService
-        .saleProduct(requestDatas)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: (response) => {
-            if (response) {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Sucesso',
-                detail: 'Venda efetuada com sucesso!',
-                life: 3000,
-              });
-              this.saleProductForm.reset();
-              this.getProductDatas();
-              this.router.navigate(['/dashboard']);
-            }
-          },
-          error: (err) => {
-            console.log(err);
-            this.saleProductForm.reset();
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erro',
-              detail: 'Erro ao vender produto!',
-              life: 3000,
-            });
-          },
-        });
+  addProductToSellList(): void {
+    if (this.saleProductForm.valid) {
+      const productId = this.saleProductForm.value.product_id as string; // Ensure it's a string
+      const amount = this.saleProductForm.value.amount as number; // Ensure it's a number
+  
+      const newProduct: Product = { productId, amount };
+      this.productsToSell.push(newProduct);
+      this.saleProductForm.reset();
     }
   }
+  
+  
+
+  handleSubmitSaleProducts(): void {
+    if (this.productsToSell.length > 0) {
+      // Properly type saleRequest as SaleProductsRequest
+      const saleRequest: SaleProductsRequest = { sales: this.productsToSell };
+      
+      // Call the saleProducts method from your productsService
+      this.productsService.saleProducts(saleRequest).pipe(takeUntil(this.destroy$)).subscribe({
+        next: () => {
+          // Display success message
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Venda Realizada',
+            detail: 'Produtos vendidos com sucesso',
+            life: 2000
+          });
+          // Clear the productsToSell list after successful sale
+          this.productsToSell = [];
+        },
+        error: (error) => {
+          // Display error message
+          // The error parameter can be used to show more specific information
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Erro na venda dos produtos: ' + error.message,
+            life: 2000
+          });
+        }
+      });
+    } else {
+      // Optionally handle the case where no products are in the list
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Atenção',
+        detail: 'Nenhum produto na lista para vender',
+        life: 2000
+      });
+    }
+  }
+  
+  
 
   getProductSelectedDatas(productId: string): void {
     const allProducts = this.productAction?.productDatas;
@@ -283,6 +308,15 @@ export class ProductFormComponent implements OnInit, OnDestroy {
         },
       });
   }
+
+  getProductName(productId: string): string {
+    const product = this.productsDatas.find(p => p.id === productId);
+    return product ? product.name : 'Produto não encontrado';
+  }
+
+  removeProductFromList(index: number): void {
+    this.productsToSell.splice(index, 1);
+  }  
 
   ngOnDestroy(): void {
     this.destroy$.next();
