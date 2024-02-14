@@ -28,6 +28,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 import { PRODUCTS_ROUTES } from '../../products.routing';
 import { ToastModule } from 'primeng/toast';
+import { PanelModule } from 'primeng/panel';
 import { Product, SaleProductsRequest } from '../../../../models/interfaces/products/request/SaleProductsRequest';
 
 @Component({
@@ -53,7 +54,8 @@ import { Product, SaleProductsRequest } from '../../../../models/interfaces/prod
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
-    ToastModule
+    ToastModule,
+    PanelModule
   ],
   providers: [MessageService],
   styleUrls: [],

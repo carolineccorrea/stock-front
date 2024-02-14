@@ -76,26 +76,32 @@
     </div>
   </form>
 
-<!-- Lista de produtos a serem vendidos -->
-<div *ngIf="productsToSell.length > 0" class="card flex flex-column md:flex-column gap-3">
-  <ul>
-    <li *ngFor="let product of productsToSell; let i = index" class="p-mb-5">
-      Nome: {{ getProductName(product.productId) }}, Quantidade: {{ product.amount }}
-      <!-- Botão de remoção com ícone de lixeira -->ç
-      <p-button 
-        icon="pi pi-trash" 
-        class="p-button-danger p-ml-2" 
-        (onClick)="removeProductFromList(i)"
-      ></p-button>
-    </li>
-  </ul>
-</div>
-
+  <!-- Coluna da Lista de Produtos Adicionados -->
+  <div *ngIf="productsToSell.length > 0" class="p-col-12 p-md-6">
+    <div class="card">
+      <p-panel header="Produtos Adicionados" [style]="{ 'padding-top': '5%' }">
+        <ul>
+          <li *ngFor="let product of productsToSell; let i = index" class="p-mb-5">
+            Nome: {{ getProductName(product.productId) }}, Quantidade: {{ product.amount }}
+            <p-button 
+              icon="pi pi-trash" 
+              class="p-button-danger p-ml-2"
+              (onClick)="removeProductFromList(i)">
+            </p-button>
+          </li>
+        </ul>
+      </p-panel>
+    </div>
+  </div>
 
 
   <!-- Botão para concluir a venda de todos os produtos -->
   <div class="flex flex-row justify-content-center align-content-center align-items-center" [style]="{ 'padding-top': '5%' }">
-    <p-button label="Concluir Vendas" (onClick)="handleSubmitSaleProducts()"></p-button>
+    <p-button 
+    label="Concluir Vendas" 
+    (onClick)="handleSubmitSaleProducts()"
+    [disabled]="productsToSell.length === 0"
+    ></p-button>
   </div>
 </div>
 
