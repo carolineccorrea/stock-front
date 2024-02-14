@@ -35,6 +35,7 @@
   </form>
 </div>
 
+
 <!-- FORMULÁRIO DE EDITAR PRODUTO -->
 <div *ngIf="productAction?.event?.action === editProductAction">
   <form [formGroup]="editProductForm" (ngSubmit)="handleSubmitEditProduct()">
@@ -62,35 +63,39 @@
   </form>
 </div>
 
+
+<!-- FORMULÁRIO DE VENDA DE PRODUTO -->
 <div *ngIf="productAction?.event?.action === saleProductAction">
-  <form [formGroup]="saleProductForm" (ngSubmit)="handleSubmitSaleProduct()">
+  <form [formGroup]="saleProductForm">
     <div class="card flex flex-column md:flex-column gap-3">
-      <p-dropdown
-        [options]="productsDatas"
-        [(ngModel)]="saleProductSelected"
-        styleClass="w-full"
-        optionLabel="name"
-        optionValue="id"
-        placeholder="Selecione um produto"
-        formControlName="product_id"
-      ></p-dropdown>
-
-      <input
-        type="number"
-        pInputText
-        placeholder="Quantidade"
-        formControlName="amount"
-      />
-
-      <div
-        class="flex flex-row justify-content-center align-content-center align-items-center"
-      >
-        <p-button
-          [disabled]="!saleProductForm.valid"
-          type="submit"
-          label="Concluir"
-        ></p-button>
+      <p-dropdown [options]="productsDatas" styleClass="w-full" optionLabel="name" optionValue="id" placeholder="Selecione um produto" formControlName="product_id"></p-dropdown>
+      <input type="number" pInputText placeholder="Quantidade" formControlName="amount" />
+      <div class="flex flex-row justify-content-center align-content-center align-items-center">
+        <p-button label="Adicionar à Lista" (onClick)="addProductToSellList()"></p-button>
       </div>
     </div>
   </form>
+
+<!-- Lista de produtos a serem vendidos -->
+<div *ngIf="productsToSell.length > 0" class="card flex flex-column md:flex-column gap-3">
+  <ul>
+    <li *ngFor="let product of productsToSell; let i = index" class="p-mb-5">
+      Nome: {{ getProductName(product.productId) }}, Quantidade: {{ product.amount }}
+      <!-- Botão de remoção com ícone de lixeira -->ç
+      <p-button 
+        icon="pi pi-trash" 
+        class="p-button-danger p-ml-2" 
+        (onClick)="removeProductFromList(i)"
+      ></p-button>
+    </li>
+  </ul>
 </div>
+
+
+
+  <!-- Botão para concluir a venda de todos os produtos -->
+  <div class="flex flex-row justify-content-center align-content-center align-items-center" [style]="{ 'padding-top': '5%' }">
+    <p-button label="Concluir Vendas" (onClick)="handleSubmitSaleProducts()"></p-button>
+  </div>
+</div>
+
