@@ -30,6 +30,7 @@ import { PRODUCTS_ROUTES } from '../../products.routing';
 import { ToastModule } from 'primeng/toast';
 import { PanelModule } from 'primeng/panel';
 import { Product, SaleProductsRequest } from '../../../../models/interfaces/products/request/SaleProductsRequest';
+import { Customer } from '../../../../models/interfaces/customer/Customer';
 
 @Component({
   selector: 'app-product-form',
@@ -58,7 +59,7 @@ import { Product, SaleProductsRequest } from '../../../../models/interfaces/prod
     PanelModule
   ],
   providers: [MessageService],
-  styleUrls: [],
+  styleUrls: ['./product-form.component.css'],
 })
 
 export class ProductFormComponent implements OnInit, OnDestroy {
@@ -231,46 +232,70 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   
   
 
+  public customerForm = this.formBuilder.group({
+    name: ['', Validators.required],
+    email: [''],
+    cpf: [''],
+    cnpj: ['']
+  });
+
   handleSubmitSaleProducts(): void {
-    if (this.productsToSell.length > 0) {
-      // Properly type saleRequest as SaleProductsRequest
-      const saleRequest: SaleProductsRequest = { sales: this.productsToSell };
-      
-      // Call the saleProducts method from your productsService
-      this.productsService.saleProducts(saleRequest).pipe(takeUntil(this.destroy$)).subscribe({
-        next: () => {
-          // Display success message
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Venda Realizada',
-            detail: 'Produtos vendidos com sucesso',
-            life: 2000
-          });
-          // Clear the productsToSell list after successful sale
-          this.productsToSell = [];
-        },
-        error: (error) => {
-          // Display error message
-          // The error parameter can be used to show more specific information
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erro',
-            detail: 'Erro na venda dos produtos: ' + error.message,
-            life: 2000
-          });
-        }
-      });
+    if (this.productsToSell.length > 0 && this.customerForm.valid) {
+      const customerData = this.customerForm.value;
+  
+      const customer: Customer = {
+        name: customerData.name as string,
+        email: customerData.email || '',
+        cpf: customerData.cpf || '',
+        cnpj: customerData.cnpj || ''
+      };
+  
+      const saleRequest: SaleProductsRequest = {
+        customer,
+        sales: this.productsToSell
+      };
+  
+      // Logando os dados do formulário
+      console.log('Customer Data:', customer);
+      console.log('Sales Data:', this.productsToSell);
+  
+      // Logando a requisição completa
+      console.log('Sale Request:', saleRequest);
+  
+      this.productsService.saleProducts(saleRequest)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Venda Realizada',
+              detail: 'Produtos vendidos com sucesso',
+              life: 2000
+            });
+            this.productsToSell = [];
+            this.customerForm.reset();
+          },
+          error: (error) => {
+            // Logando o erro retornado
+            console.error('Error in saleProducts:', error);
+  
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Erro na venda dos produtos: ' + error.message,
+              life: 2000
+            });
+          }
+        });
     } else {
-      // Optionally handle the case where no products are in the list
       this.messageService.add({
         severity: 'warn',
         summary: 'Atenção',
-        detail: 'Nenhum produto na lista para vender',
+        detail: 'Formulário do cliente inválido ou nenhum produto na lista para vender',
         life: 2000
       });
     }
   }
-  
   
 
   getProductSelectedDatas(productId: string): void {

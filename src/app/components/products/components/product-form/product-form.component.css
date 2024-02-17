@@ -1,3 +1,15 @@
-:host ::ng-deep .p-panel {
-  margin-top: 100px;
+.customer-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.customer-input-field {
+  width: 100%; /* Isso garante que os campos ocupem toda a largura do container */
+  margin-bottom: 10px; /* Isso adiciona um pouco de espaço entre cada campo */
+}
+
+/* Se estiver usando classes do PrimeNG, você pode querer ajustar diretamente os estilos deles */
+:host ::ng-deep .p-inputtext {
+  width: 100%; /* Isso faz com que o elemento input do PrimeNG ocupe toda a largura */
 }
