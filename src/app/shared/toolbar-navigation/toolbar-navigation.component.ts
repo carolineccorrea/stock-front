@@ -8,13 +8,15 @@ import { ProductEvent } from '../../models/enums/products/ProductEvent';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
+import { MenuModule } from 'primeng/menu';
+import { MenubarModule } from 'primeng/menubar';
 
 @Component({
   selector: 'app-toolbar-navigation',
   templateUrl: './toolbar-navigation.component.html',
   standalone: true,
-  imports: [ButtonModule,ToolbarModule,RouterModule],
-  styleUrls: [],
+  imports: [ButtonModule,ToolbarModule,RouterModule,MenuModule,MenubarModule],
+  styleUrls: ['./toolbar-navigation.component.css'],
 })
 export class ToolbarNavigationComponent {
   constructor(
