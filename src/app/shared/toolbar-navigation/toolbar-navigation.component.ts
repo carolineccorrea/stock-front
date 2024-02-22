@@ -13,7 +13,7 @@ import { ToolbarModule } from 'primeng/toolbar';
   selector: 'app-toolbar-navigation',
   templateUrl: './toolbar-navigation.component.html',
   standalone: true,
-  imports: [CommonModule,ButtonModule,ToolbarModule,RouterModule],
+  imports: [ButtonModule,ToolbarModule,RouterModule],
   styleUrls: [],
 })
 export class ToolbarNavigationComponent {
