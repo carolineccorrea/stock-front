@@ -65,23 +65,6 @@ export class ProductsService {
     );
   }
 
-/*  saleProduct(
-    requestDatas: SaleProductRequest
-  ): Observable<SaleProductResponse> {
-    return this.http.put<SaleProductResponse>(
-      `${this.API_URL}/product/sale`,
-      {
-        amount: requestDatas?.amount,
-      },
-      {
-        ...this.httpOptions,
-        params: {
-          product_id: requestDatas?.productId,
-        },
-      }
-    );
-  } */
-
   saleProducts(requestData: SaleProductsRequest): Observable<SaleProductResponse[]> {
     return this.http.put<SaleProductResponse[]>(
       `${this.API_URL}/product/sale`,

@@ -1,6 +1,7 @@
 <p-toast></p-toast>
 <!-- FORMULÁRIO DE NOVO PRODUTO -->
 <div *ngIf="productAction?.event?.action === addProductAction">
+
   <form [formGroup]="addProductForm" (ngSubmit)="handleSubmitAddProduct()">
     <div class="card flex flex-column md:flex-column gap-3">
       <!-- Nome do produto -->
@@ -66,6 +67,19 @@
 
 <!-- FORMULÁRIO DE VENDA DE PRODUTO -->
 <div *ngIf="productAction?.event?.action === saleProductAction">
+
+<!-- customer.component.html -->
+<p-panel header="Cadastro de Clientes" [style]="{ 'padding-top': '5%', 'padding-bottom': '5%' }">
+  <form [formGroup]="customerForm" class="customer-form">
+    <div class="card">
+      <input pInputText placeholder="Nome do Cliente" formControlName="name" class="customer-input-field" />
+      <input pInputText placeholder="Email do Cliente" formControlName="email" class="customer-input-field" />
+      <input pInputText placeholder="CPF do Cliente" formControlName="cpf" class="customer-input-field" />
+      <input pInputText placeholder="CNPJ do Cliente" formControlName="cnpj" class="customer-input-field" />
+    </div>
+  </form>
+</p-panel>
+
   <form [formGroup]="saleProductForm">
     <div class="card flex flex-column md:flex-column gap-3">
       <p-dropdown [options]="productsDatas" styleClass="w-full" optionLabel="name" optionValue="id" placeholder="Selecione um produto" formControlName="product_id"></p-dropdown>
@@ -100,7 +114,7 @@
     <p-button 
     label="Concluir Vendas" 
     (onClick)="handleSubmitSaleProducts()"
-    [disabled]="productsToSell.length === 0"
+    [disabled]="productsToSell.length === 0 || !customerForm.valid"
     ></p-button>
   </div>
 </div>
