@@ -5,6 +5,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToolbarNavigationComponent } from '../../shared/toolbar-navigation/toolbar-navigation.component';
 import { CardModule } from 'primeng/card';
+import { ServiceOrderService } from '../../services/service-order/service-order.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-service-order',
@@ -17,8 +20,10 @@ import { CardModule } from 'primeng/card';
     InputTextModule,
     RadioButtonModule,
     ToolbarNavigationComponent,
-    CardModule
-  ]
+    CardModule,
+    ToastModule
+  ],
+  providers: [MessageService],
 })
 export class ServiceOrderComponent {
   serviceOrder = {
@@ -31,10 +36,35 @@ export class ServiceOrderComponent {
     serialNumber: '',
     condition: '',
     customerId: '',
-    underWarranty: false
+    underWarranty: ''
   };
 
+  constructor(
+    private serviceOrderService: ServiceOrderService, 
+    private messageService: MessageService
+  ) {}
+
   onSubmit() {
-    console.log(this.serviceOrder);
+    const payload = {
+      ...this.serviceOrder,
+      underWarranty: this.serviceOrder.underWarranty === 'Sim'
+    };
+
+    this.serviceOrderService.createServiceOrder(payload).subscribe({
+      next: (response) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Ordem de Serviço criada com sucesso!'
+        });
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao criar a Ordem de Serviço.'
+        });
+      }
+    });
   }
 }
