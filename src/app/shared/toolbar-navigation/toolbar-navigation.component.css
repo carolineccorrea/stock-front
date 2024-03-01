@@ -19,7 +19,7 @@
 }
 
 :host ::ng-deep .custom-menubar .p-menubar ul li:last-child {
-  margin-right: 300px;
+  margin-right: 150px;
 }
 
 :host ::ng-deep .custom-menubar .p-menubar ul li a {

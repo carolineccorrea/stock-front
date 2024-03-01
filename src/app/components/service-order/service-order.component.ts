@@ -8,6 +8,9 @@ import { CardModule } from 'primeng/card';
 import { ServiceOrderService } from '../../services/service-order/service-order.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Customer } from '../../models/interfaces/customer/Customer';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CustomerService } from '../../services/customer/customer.service';
 
 @Component({
   selector: 'app-service-order',
@@ -21,7 +24,8 @@ import { ToastModule } from 'primeng/toast';
     RadioButtonModule,
     ToolbarNavigationComponent,
     CardModule,
-    ToastModule
+    ToastModule,
+    AutoCompleteModule
   ],
   providers: [MessageService],
 })
@@ -39,9 +43,13 @@ export class ServiceOrderComponent {
     underWarranty: ''
   };
 
+  customers!: Customer[];
+  selectedCustomer!: Customer;
+
   constructor(
     private serviceOrderService: ServiceOrderService, 
-    private messageService: MessageService
+    private messageService: MessageService,
+    private customerService: CustomerService
   ) {}
 
   onSubmit() {
@@ -65,6 +73,12 @@ export class ServiceOrderComponent {
           detail: 'Erro ao criar a Ordem de Serviço.'
         });
       }
+    });
+  }
+
+  searchCustomer(event: any) {
+    this.customerService.searchCustomers(event.query).subscribe(data => {
+      this.customers = data;
     });
   }
 }
