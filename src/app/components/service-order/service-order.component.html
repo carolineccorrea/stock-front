@@ -1,0 +1,72 @@
+<app-toolbar-navigation> </app-toolbar-navigation>
+<p-toast></p-toast>
+<p-card
+styleClass="shadow-3 m-5 text-indigo-800"
+>
+  <div class="service-order-form">
+    <h3>Ordem de Serviço</h3>
+    <form (ngSubmit)="onSubmit()">
+      <div class="grid">
+        <!-- Linha 1: Equipamento e Acessórios -->
+        <div class="field">
+          <label for="equipment">Equipamento</label>
+          <input type="text" id="equipment" pInputText [(ngModel)]="serviceOrder.equipment" name="equipment"/>
+        </div>
+        <div class="field">
+          <label for="accessories">Acessórios</label>
+          <input type="text" id="accessories" pInputText [(ngModel)]="serviceOrder.accessories" name="accessories"/>
+        </div>
+  
+        <!-- Linha 2: Queixa do Cliente e Descrição -->
+        <div class="field">
+          <label for="complaint">Queixa do Cliente</label>
+          <textarea id="complaint" pInputTextarea [(ngModel)]="serviceOrder.complaint" name="complaint"></textarea>
+        </div>
+        <div class="field">
+          <label for="description">Descrição</label>
+          <textarea id="description" pInputTextarea [(ngModel)]="serviceOrder.description" name="description"></textarea>
+        </div>
+  
+        <!-- Linha 3: Condição e Número de Série -->
+        <div class="field">
+          <label for="condition">Condição</label>
+          <textarea id="condition" pInputTextarea [(ngModel)]="serviceOrder.condition" name="condition"></textarea>
+        </div>
+        <div class="field">
+          <label for="serialNumber">Número de Série</label>
+          <input type="text" id="serialNumber" pInputText [(ngModel)]="serviceOrder.serialNumber" name="serialNumber"/>
+        </div>
+  
+        <!-- Linha 4: Data de Entrada e Status -->
+        <div class="field">
+          <label for="entryDate">Data de Entrada</label>
+          <input type="date" id="entryDate" pInputText [(ngModel)]="serviceOrder.entryDate" name="entryDate"/>
+        </div>
+        <div class="field">
+          <label for="status">Status</label>
+          <input type="text" id="status" pInputText [(ngModel)]="serviceOrder.status" name="status"/>
+        </div>
+  
+        <!-- Linha 5: ID do Cliente e Garantia -->
+        <div class="field">
+          <label for="customerId">ID do Cliente</label>
+          <input type="text" id="customerId" pInputText [(ngModel)]="serviceOrder.customerId" name="customerId"/>
+        </div>
+        <div class="field">
+          <label>Garantia</label>
+          <div class="field-radiobutton">
+            <p-radioButton name="underWarranty" value="Sim" [(ngModel)]="serviceOrder.underWarranty" inputId="warrantyYes"></p-radioButton>
+            <label for="warrantyYes">Sim</label>
+          </div>
+          <div class="field-radiobutton">
+            <p-radioButton name="underWarranty" value="Não" [(ngModel)]="serviceOrder.underWarranty" inputId="warrantyNo"></p-radioButton>
+            <label for="warrantyNo">Não</label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Botão de Envio -->
+      <p-button label="Enviar" type="submit"></p-button>
+    </form>
+  </div>
+</p-card>

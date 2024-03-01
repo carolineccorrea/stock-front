@@ -1,0 +1,40 @@
+::ng-deep .custom-card {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  padding: 200px;
+  margin-top: 15px;
+}
+
+.service-order-form {
+  max-width: 800px;
+  margin: auto;
+  background-color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+  grid-gap: 16px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+input[pInputText],
+textarea[pInputTextarea] {
+  width: 100%;
+  padding: 10px;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr; /* Uma coluna em telas menores */
+  }
+}
