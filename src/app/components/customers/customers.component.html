@@ -1,0 +1,42 @@
+<app-toolbar-navigation> </app-toolbar-navigation>
+<p-toast></p-toast>
+
+<!-- customer.component.html -->
+<p-card
+styleClass="shadow-3 m-5 text-indigo-800"
+>
+  <div class="panel-container">
+
+    <form [formGroup]="customerForm" class="customer-form">
+        <h3>Cadastro de Clientes</h3>
+      <div class="grid">
+        <!-- Linha 1: Nome do Cliente -->
+        <div class="field">
+          <label for="name">Nome</label>
+          <input type="text" id="name" pInputText formControlName="name"/>
+        </div>
+
+        <!-- Linha 2: Email do Cliente -->
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="text" id="email" pInputText formControlName="email"/>
+        </div>
+
+        <!-- Linha 3: CPF do Cliente -->
+        <div class="field">
+          <label for="cpf">CPF</label>
+          <input type="text" id="cpf" pInputText formControlName="cpf"/>
+        </div>
+
+        <!-- Linha 4: CNPJ do Cliente -->
+        <div class="field">
+          <label for="cnpj">CNPJ </label>
+          <input type="text" id="cnpj" pInputText formControlName="cnpj"/>
+        </div>
+      </div>
+  
+      <!-- Botão de Envio -->
+      <p-button label="Cadastrar" type="submit"></p-button>
+    </form>
+  </div>
+</p-card>
