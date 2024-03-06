@@ -1,8 +1,20 @@
 <p-menubar class="custom-menubar">
   <ul>
     <li>
+      <a [routerLink]="'/service-order'" routerLinkActive="exact_route">
+        <i class="pi pi-file-edit"></i>
+        <span>Ordem de serviço</span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="'/customers'" routerLinkActive="exact_route">
+        <i class="pi pi-users"></i>
+        <span>Clientes</span>
+      </a>
+    </li>
+    <li>
       <a [routerLink]="'/dashboard'" routerLinkActive="exact_route">
-        <i class="pi pi-home"></i>
+        <i class="pi pi-chart-line"></i>
         <span>Dashboard</span>
       </a>
     </li>

@@ -26,5 +26,15 @@ export const routes: Routes = [
     path: 'categories',
     loadComponent: () => import('./components/categories/page/categories-home/categories-home.component').then(m => m.CategoriesHomeComponent),
     canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
+  },
+  {
+    path: 'service-order',
+    loadComponent: () => import('./components/service-order/service-order.component').then(m => m.ServiceOrderComponent),
+    canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
+  },
+  {
+    path: 'customers',
+    loadComponent: () => import('./components/customers/customers.component').then(m => m.CustomersComponent),
+    canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
   }
 ];
