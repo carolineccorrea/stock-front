@@ -31,7 +31,12 @@ export class ToolbarNavigationComponent {
   initializeMenu(): void {
     this.items = [
       {
-        label: 'Ordem de serviço',
+        label: 'Pagina Principal',
+        icon: 'pi pi-home',
+        routerLink: '/navigator'
+      },
+      {
+        label: 'Ordem de Serviço',
         icon: 'pi pi-file-edit',
         routerLink: '/service-order'
       },
@@ -44,11 +49,6 @@ export class ToolbarNavigationComponent {
         label: 'Dashboard',
         icon: 'pi pi-chart-line',
         routerLink: '/dashboard'
-      },
-      {
-        label: 'Sair',
-        icon: 'pi pi-sign-out',
-        command: () => this.handleLogout()
       },
       // Submenu PDV
       {
@@ -71,7 +71,12 @@ export class ToolbarNavigationComponent {
             command: () => this.handleSaleProduct()
           }
         ]
-      }
+      },
+      {
+        label: 'Sair',
+        icon: 'pi pi-sign-out',
+        command: () => this.handleLogout()
+      },
     ];
   }
 
