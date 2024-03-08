@@ -1,40 +1,5 @@
 :host ::ng-deep .custom-menubar .p-menubar {
-  background-color: #f0f0f0; /* Cor de fundo do menubar */
-  border: none;
-  height: 80px;
-}
-
-:host ::ng-deep .custom-menubar .p-menubar ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
-:host ::ng-deep .custom-menubar .p-menubar ul li {
-  margin-right: 80px; /* Espaçamento entre os itens */
-}
-
-:host ::ng-deep .custom-menubar .p-menubar ul li:last-child {
-  margin-right: 150px;
-}
-
-:host ::ng-deep .custom-menubar .p-menubar ul li a {
-  display: flex;
-  align-items: center;
-  color: #333; /* Cor do texto */
-  text-decoration: none; /* Remover sublinhado dos links */
-  cursor: pointer; /* Adiciona o cursor mãozinha */
-}
-
-/* Efeito hover para mudar a cor de fundo */
-:host ::ng-deep .custom-menubar .p-menubar ul li a:hover {
-  background-color: #e0e0e0; /* Cor de fundo ao passar o mouse */
-}
-
-:host ::ng-deep .custom-menubar .p-menubar ul li a i {
-  margin-right: 8px; /* Espaço entre o ícone e o texto */
+  color: #ffffff !important;
+  height: 100px;
+  padding-left: 22%;
 }

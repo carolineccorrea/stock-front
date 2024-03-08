@@ -1,33 +1,88 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProductFormComponent } from '../../components/products/components/product-form/product-form.component';
 import { ProductEvent } from '../../models/enums/products/ProductEvent';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { ToolbarModule } from 'primeng/toolbar';
-import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 
 @Component({
   selector: 'app-toolbar-navigation',
   templateUrl: './toolbar-navigation.component.html',
-  standalone: true,
-  imports: [ButtonModule,ToolbarModule,RouterModule,MenuModule,MenubarModule],
   styleUrls: ['./toolbar-navigation.component.css'],
+  standalone: true,
+  imports: [
+    MenubarModule,
+  ],
 })
+
 export class ToolbarNavigationComponent {
+  items!: MenuItem[];
+
   constructor(
     private cookie: CookieService,
     private router: Router,
     private dialogService: DialogService
-  ) {}
+  ) {
+    this.initializeMenu();
+  }
+
+  initializeMenu(): void {
+    this.items = [
+      {
+        label: 'Pagina Principal',
+        icon: 'pi pi-home',
+        routerLink: '/navigator'
+      },
+      {
+        label: 'Ordem de Serviço',
+        icon: 'pi pi-file-edit',
+        routerLink: '/service-order'
+      },
+      {
+        label: 'Clientes',
+        icon: 'pi pi-users',
+        routerLink: '/customers'
+      },
+      {
+        label: 'Dashboard',
+        icon: 'pi pi-chart-line',
+        routerLink: '/dashboard'
+      },
+      // Submenu PDV
+      {
+        label: 'PDV',
+        icon: 'pi pi-fw pi-shopping-cart',
+        items: [
+          {
+            label: 'Produtos',
+            icon: 'pi pi-fw pi-cart-plus',
+            command: () => this.router.navigate(['/products'])
+          },
+          {
+            label: 'Categorias',
+            icon: 'pi pi-fw pi-ticket',
+            command: () => this.router.navigate(['/categories'])
+          },
+          {
+            label: 'Efetuar Venda',
+            icon: 'pi pi-fw pi-credit-card',
+            command: () => this.handleSaleProduct()
+          }
+        ]
+      },
+      {
+        label: 'Sair',
+        icon: 'pi pi-sign-out',
+        command: () => this.handleLogout()
+      },
+    ];
+  }
 
   handleLogout(): void {
     this.cookie.delete('USER_INFO');
-    void this.router.navigate(['/home']);
+    this.router.navigate(['/home']);
   }
 
   handleSaleProduct(): void {
