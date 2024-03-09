@@ -1,3 +1,26 @@
 <app-toolbar-navigation> </app-toolbar-navigation>
 <p-toast></p-toast>
-<p>navigator-hub works!</p>
+
+<p-card
+styleClass="shadow-3 m-5 text-indigo-800"
+>
+<div class="navigator-container">
+  <p-card class="navigator-card" (click)="navigate('/category')">
+    <img src="../../../assets/icons/iconcategory.png" alt="" />
+    <div class="card-title">Categorias</div>
+  </p-card>
+
+  <p-card class="navigator-card " (click)="navigate('/customers')">
+    <img src="../../../assets/icons/iconcustomer.png" alt="" />
+    <div class="card-title">Produtos</div>
+    <!-- ... outros conteúdos do card ... -->
+  </p-card>
+
+  <p-card class="navigator-card" (click)="navigate('/service-order')">
+    <img src="../../../assets/icons/iconserviceorder.png" alt="" />
+    <div class="card-title">Ordem de serviço</div>
+    <!-- ... outros conteúdos do card ... -->
+  </p-card>
+  <!-- Adicione mais cards com suas classes específicas -->
+</div>
+</p-card>

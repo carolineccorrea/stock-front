@@ -1,0 +1,39 @@
+/* Estiliza o container que envolve todos os cards */
+.navigator-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Estiliza cada card individualmente */
+.navigator-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinha os itens ao centro */
+  justify-content: center;
+  width: 200px;
+  cursor: pointer;
+}
+
+.navigator-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin: 0 auto; /* Centraliza a imagem horizontalmente */
+  display: block; /* Garante que a imagem seja tratada como um bloco */
+}
+
+/* Título do card */
+.card-title {
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.navigator-card:hover {
+  transform: scale(1.1); /* Efeito ao passar o mouse */
+}
