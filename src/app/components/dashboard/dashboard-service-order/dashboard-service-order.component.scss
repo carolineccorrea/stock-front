@@ -1,12 +1,19 @@
-/* dashboard-service-order.component.scss */
-.dashboard-service-order {
-  background-color: #f9f9f9; /* Cor de fundo branco suave */
+.dashboard-service-order-chart {
   padding: 20px;
+  background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve para dar profundidade */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   canvas {
-      max-width: 100%; /* Assegura que o canvas não exceda a largura do container */
-      height: auto; /* Altura automática para manter a proporção */
+      max-width: 100%;
+      height: auto;
   }
+}
+
+.service-order-card {
+  margin: 2rem auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 75%; // Ajuste a largura conforme necessário
+  max-width: 600px; // Ajuste a largura máxima conforme necessário
 }
