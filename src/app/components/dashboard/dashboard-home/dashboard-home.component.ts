@@ -2,14 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
-import { GetAllProductsResponse } from '../../../../models/interfaces/products/response/GetAllProductsResponse';
-import { ProductsService } from '../../../../services/products/products.service';
-import { ProductsDataTransferService } from '../../../../shared/services/products/products-data-transfer.service';
+import { GetAllProductsResponse } from '../../../models/interfaces/products/response/GetAllProductsResponse';
+import { ProductsService } from '../../../services/products/products.service';
+import { ProductsDataTransferService } from '../../../shared/services/products/products-data-transfer.service';
 import { CommonModule } from '@angular/common';
-import { ToolbarNavigationComponent } from '../../../../shared/toolbar-navigation/toolbar-navigation.component';
+import { ToolbarNavigationComponent } from '../../../shared/toolbar-navigation/toolbar-navigation.component';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardServiceOrderComponent } from '../dashboard-service-order/dashboard-service-order.component';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     ToolbarNavigationComponent,
     CardModule,
     ChartModule,
-    HttpClientModule
+    HttpClientModule,
+    DashboardServiceOrderComponent
   ],
   providers: [MessageService],
   styleUrls: [],
