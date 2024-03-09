@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { osmock } from '../mocks/serviceOrderMock';
 
 export interface ServiceOrder {
   equipment: string;
@@ -39,5 +40,9 @@ export class ServiceOrderService {
       this.httpOptions
     );
   }
+
+  getServiceOrders(): Promise<any[]> {
+    return Promise.resolve(osmock);
+}
 
 }

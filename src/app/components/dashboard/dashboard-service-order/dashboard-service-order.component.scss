@@ -1,0 +1,12 @@
+/* dashboard-service-order.component.scss */
+.dashboard-service-order {
+  background-color: #f9f9f9; /* Cor de fundo branco suave */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve para dar profundidade */
+
+  canvas {
+      max-width: 100%; /* Assegura que o canvas não exceda a largura do container */
+      height: auto; /* Altura automática para manter a proporção */
+  }
+}
