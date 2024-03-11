@@ -36,33 +36,43 @@ export class DashboardServiceOrderComponent implements OnInit {
     }
 
     processData(data: any[]) {
-        const monthlyCounts = new Array(12).fill(0);
-
+        const monthStartCounts = new Array(12).fill(0);
+        const monthEndCounts = new Array(12).fill(0);
+    
         data.forEach(order => {
-            const month = new Date(order.entryDate).getMonth();
-            monthlyCounts[month]++;
+            const date = new Date(order.entryDate);
+            const month = date.getMonth();
+            const day = date.getDate();
+    
+            if (day <= 15) {
+                // Conta para o início do mês
+                monthStartCounts[month]++;
+            } else {
+                // Conta para o final do mês
+                monthEndCounts[month]++;
+            }
         });
-
+    
         this.chartData = {
             labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            datasets: [{
-                label: 'Ordens de Serviço por Mês',
-                data: monthlyCounts,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                fill: false,
-                tension: 0.4
-            }]
-        };
-
-        this.chartOptions = {
-            scales: {
-                y: {
-                    beginAtZero: true
+            datasets: [
+                {
+                    label: 'Ordens no Início do Mês',
+                    data: monthStartCounts,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    fill: false,
+                    tension: 0.4
+                },
+                {
+                    label: 'Ordens no Final do Mês',
+                    data: monthEndCounts,
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    fill: false,
+                    tension: 0.4
                 }
-            },
-            responsive: true,
-            maintainAspectRatio: false
+            ]
         };
 
         this.createChart();
