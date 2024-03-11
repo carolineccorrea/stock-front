@@ -25,7 +25,7 @@ import { DashboardServiceOrderComponent } from '../dashboard-service-order/dashb
     DashboardServiceOrderComponent
   ],
   providers: [MessageService],
-  styleUrls: [],
+  styleUrls: ['./dashboard-home.component.scss'],
 })
 export class DashboardHomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
