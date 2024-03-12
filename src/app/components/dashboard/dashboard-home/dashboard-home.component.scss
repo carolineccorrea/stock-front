@@ -1,0 +1,9 @@
+.dashboard-container {
+  display: flex;
+  justify-content: space-between; /* Adjusts the spacing between the two dashboards */
+}
+
+.grid-dashboard, .service-order-dashboard {
+  flex: 1; /* Each dashboard takes equal width */
+  /* Add additional styling as needed */
+}
