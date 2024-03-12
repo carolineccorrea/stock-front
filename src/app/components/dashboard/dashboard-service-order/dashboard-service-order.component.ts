@@ -8,6 +8,7 @@ import { ChartModule } from 'primeng/chart';
 import { ToolbarNavigationComponent } from '../../../shared/toolbar-navigation/toolbar-navigation.component';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
+import { ServiceOrder } from '../../../models/interfaces/service-order/ServiceOrder';
 
 @Component({
     selector: 'app-dashboard-service-order',
@@ -37,9 +38,15 @@ export class DashboardServiceOrderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.serviceOrderService.getServiceOrders().then(data => {
-            this.updateChartData(data);
-        });
+        this.serviceOrderService.getAllServiceOrders().subscribe(
+            (data: any) => {
+                this.updateChartData(data);
+            },
+            (error) => {
+                console.error('Error fetching service orders:', error);
+            }
+        );
+        
 
         this.updateItemIconAndChartType(this.itemAtual, this.chartType);
     }
@@ -159,9 +166,15 @@ export class DashboardServiceOrderComponent implements OnInit {
         this.itemAtual = icon;
         this.chartType = chartType;
 
-        this.serviceOrderService.getServiceOrders().then(data => {
-            this.updateChartData(data);
-        });
+        this.serviceOrderService.getAllServiceOrders().subscribe(
+            (data: any[]) => {
+                this.updateChartData(data);
+            },
+            (error) => {
+                console.error('Error fetching service orders:', error);
+            }
+        );
+        
 
         this.items = [
             {
