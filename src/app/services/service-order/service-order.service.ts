@@ -45,7 +45,12 @@ export class ServiceOrderService {
         `${this.API_URL}/serviceorders`,
         this.httpOptions
     );
-}
+  }
 
-
+  getServiceOrdersByCustomerId(customerId: string): Observable<ServiceOrder[]> {
+    return this.http.get<ServiceOrder[]>(
+      `${this.API_URL}/serviceorders/customer?customerId=${customerId}`,
+      this.httpOptions
+    );
+  }
 }
