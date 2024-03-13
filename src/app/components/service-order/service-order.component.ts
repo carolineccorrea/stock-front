@@ -13,6 +13,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CustomerService } from '../../services/customer/customer.service';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-service-order',
@@ -29,7 +31,9 @@ import { DropdownModule } from 'primeng/dropdown';
     CardModule,
     ToastModule,
     AutoCompleteModule,
-    DropdownModule
+    DropdownModule,
+    TableModule,
+    DialogModule
   ],
   providers: [MessageService],
 })
@@ -47,10 +51,14 @@ export class ServiceOrderComponent {
     underWarranty: false
   };
 
-  customers!: Customer[];
-  selectedCustomer!: Customer;
+  searchTerm: string = '';
+  customers: Customer[] = [];
+  selectedCustomer: Customer | null = null;
   previousOrders: ServiceOrder[] = [];
-  selectedOrder!: ServiceOrder;
+  showOptions: boolean = false;
+  selectedOrder!: any;
+
+  selectedCustomerId!: string;
 
   constructor(
     private serviceOrderService: ServiceOrderService, 
@@ -58,47 +66,107 @@ export class ServiceOrderComponent {
     private customerService: CustomerService
   ) {}
 
-  onSubmit() {
-    const payload = {
-      ...this.serviceOrder,
-      underWarranty: this.serviceOrder.underWarranty === true
-    };
-
-    this.serviceOrderService.createServiceOrder(payload).subscribe({
+  onSubmit(): void {
+    // Fazendo um console.log do objeto serviceOrder inteiro
+    console.log('Dados do Formulário de Ordem de Serviço:', this.serviceOrder);
+  
+    // Continua com a submissão se tudo estiver correto
+    this.serviceOrderService.createServiceOrder(this.serviceOrder).subscribe({
       next: (response) => {
         this.messageService.add({
           severity: 'success',
           summary: 'Sucesso',
           detail: 'Ordem de Serviço criada com sucesso!'
         });
+        // Limpeza ou redirecionamento pode ser feito aqui
       },
       error: (error) => {
         this.messageService.add({
           severity: 'error',
-          summary: 'Erro',
-          detail: 'Erro ao criar a Ordem de Serviço.'
+          summary: 'Erro ao enviar',
+          detail: 'Não foi possível criar a ordem de serviço.'
         });
       }
     });
   }
+  
 
+  //options = [{ id: '1', name: 'Cliente 1' }, { id: '2', name: 'Cliente 2' }]; // Exemplo de opções
+  filteredOptions = [] as any
+
+  onSearch(): void {
+    // Aqui, 'searchTerm' já contém o valor atualizado do campo de entrada
+    if (this.searchTerm) {
+      this.customerService.searchCustomers(this.searchTerm).subscribe(data => {
+        this.filteredOptions = data;
+        this.showOptions = true;
+      });
+    } else {
+      this.filteredOptions = [];
+      this.showOptions = false;
+    }
+  }
+  
+  toggleDropdown(open?: boolean) {
+    this.showOptions = open === undefined ? !this.showOptions : open;
+  }
+
+  onOptionSelect(option: Customer): void {
+    if (!option.id) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Cliente selecionado não possui um ID válido.'
+      });
+      return;
+    }
+  
+    this.serviceOrder.customerId = option.id; // Correção para garantir que o ID do cliente seja atribuído
+    this.selectedCustomer = option; // Para exibição ou uso adicional
+    this.showOptions = false; // Supondo que isso feche a lista de opções
+  }
+  
   searchCustomer(event: any) {
     this.customerService.searchCustomers(event.query).subscribe(data => {
       this.customers = data;
     });
   }
 
-// Dentro de ServiceOrderComponent
-  onWarrantyChange() {
+  onCustomerSelect(customer: Customer): void {
+    // Garanta que o ID do cliente seja uma string. Se por algum motivo o ID for undefined,
+    // considere como um erro ou trate de acordo com a lógica específica do seu aplicativo.
+    if (!customer.id) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro na Seleção',
+        detail: 'Cliente selecionado não possui um ID válido.'
+      });
+      return;
+    }
+  
+    this.serviceOrder.customerId = customer.id; // Atualiza o ID do cliente na ordem de serviço
+    this.selectedCustomer = customer; // Atualiza o cliente selecionado para exibição ou outras lógicas necessárias
+    this.showOptions = false; // Fecha o dropdown de opções
+  }
+
+  removeSelectedCustomer(): void {
+    this.selectedCustomer = null;
+    this.serviceOrder.customerId = ''; // Limpe o ID do cliente na ordem de serviço
+  }
+
+  onWarrantyChange(value: boolean): void {
+    this.serviceOrder.underWarranty = value;
+  
     if (this.serviceOrder.underWarranty) {
       this.serviceOrderService.getServiceOrdersByCustomerId(this.serviceOrder.customerId)
         .subscribe(orders => {
           this.previousOrders = orders;
         });
     } else {
-      this.previousOrders = [];
+      this.previousOrders = []; // Limpa as ordens anteriores se underWarranty é false
     }
   }
+   
 
 }
 

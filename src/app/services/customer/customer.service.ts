@@ -27,9 +27,9 @@ export class CustomerService {
 
   constructor(private http: HttpClient, private cookie: CookieService) {}
 
-  searchCustomers(query: string): Observable<Customer[]> {
+  searchCustomers(data: string): Observable<Customer[]> {
     return this.http.get<Customer[]>(`${this.API_URL}/customers/search`, {
-      params: { query: query },
+      params: { data: data },
       ...this.httpOptions
     });
   }

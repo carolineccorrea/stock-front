@@ -233,6 +233,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   
 
   public customerForm = this.formBuilder.group({
+    id: [''],
     name: ['', Validators.required],
     email: [''],
     cpf: [''],
@@ -244,6 +245,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       const customerData = this.customerForm.value;
   
       const customer: Customer = {
+        id: customerData.id as string,
         name: customerData.name as string,
         email: customerData.email || '',
         cpf: customerData.cpf || '',

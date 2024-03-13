@@ -47,22 +47,39 @@ styleClass="shadow-3 m-5 text-indigo-800"
           <label for="status">Status</label>
           <input type="text" id="status" pInputText [(ngModel)]="serviceOrder.status" name="status"/>
         </div>
+
+        <div class="field">
+          <label>Garantia</label>
+
+          <p-radioButton name="underWarranty" [value]="true" label="Sim" [(ngModel)]="serviceOrder.underWarranty" binary="true" (onChange)="onWarrantyChange(true)"></p-radioButton>
+          <p-radioButton name="underWarranty" [value]="false" label="Não" [(ngModel)]="serviceOrder.underWarranty" binary="true" (onChange)="onWarrantyChange(false)"></p-radioButton>
+          
+          <p-dropdown *ngIf="serviceOrder.underWarranty" [options]="previousOrders" [(ngModel)]="selectedOrder" name="previousOrder" placeholder="Selecione a Ordem de Serviço Anterior" optionLabel="description"></p-dropdown>
+          </div>
   
         <!-- Linha 5: ID do Cliente e Garantia -->
         <div class="field">
           <label for="customerId">ID do Cliente</label>
-          <input type="text" id="customerId" pInputText [(ngModel)]="serviceOrder.customerId" name="customerId"/>
+          <div class="p-inputgroup">
+            <input type="text" pInputText [(ngModel)]="searchTerm" (input)="onSearch()" name="customerSearch" placeholder="Digite o ID do cliente"/>
+            <button type="button" pButton pRipple (click)="toggleDropdown()" icon="pi pi-search"></button>
+          </div>
         </div>
-        <div class="field">
-          <label>Garantia</label>
-
-          <p-radioButton class="radioBtn" name="underWarranty" [value]="true" label="Sim" [(ngModel)]="serviceOrder.underWarranty"></p-radioButton>
-          <p-radioButton class="radioBtn" name="underWarranty" [value]="false" label="Não" [(ngModel)]="serviceOrder.underWarranty"></p-radioButton>
-          
         
-          <p-dropdown *ngIf="serviceOrder.underWarranty" [options]="previousOrders" [(ngModel)]="selectedOrder" name="previousOrder" placeholder="Selecione a Ordem de Serviço Anterior" optionLabel="description"></p-dropdown>
-
+        <!-- Exibição do cliente selecionado com opção para remover -->
+        <div *ngIf="selectedCustomer" class="selected-customer-display">
+          Cliente selecionado: {{selectedCustomer.name}} (ID: {{selectedCustomer.id}})
+          <button type="button" pButton icon="pi pi-times" (click)="removeSelectedCustomer()" class="p-button-rounded p-button-danger p-button-outlined"></button>
         </div>
+        
+        <div *ngIf="showOptions" style="position: relative;">
+          <ul style="position: absolute; width: 100%; z-index: 1000; background: white; list-style-type: none; margin: 0; padding: 0;">
+            <li *ngFor="let option of filteredOptions" (click)="onOptionSelect(option)" style="padding: 10px; cursor: pointer;">
+              {{ option.name }}
+            </li>
+          </ul>
+        </div>
+        
       </div>
   
       <!-- Botão de Envio -->

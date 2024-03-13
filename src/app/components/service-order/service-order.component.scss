@@ -43,3 +43,13 @@ textarea[pInputTextarea] {
   margin-right: 10px;
   margin: 10px;
 }
+
+.selected-customer-display {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #eef;
+  border-radius: 4px;
+}
