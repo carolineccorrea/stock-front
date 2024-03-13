@@ -89,9 +89,7 @@ export class ServiceOrderComponent {
       }
     });
   }
-  
 
-  //options = [{ id: '1', name: 'Cliente 1' }, { id: '2', name: 'Cliente 2' }]; // Exemplo de opções
   filteredOptions = [] as any
 
   onSearch(): void {
