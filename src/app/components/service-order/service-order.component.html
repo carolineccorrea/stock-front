@@ -1,89 +1,91 @@
-<app-toolbar-navigation> </app-toolbar-navigation>
+<app-toolbar-navigation>
+</app-toolbar-navigation>
+
 <p-toast></p-toast>
-<p-card
-styleClass="shadow-3 m-5 text-indigo-800"
->
-  <div class="service-order-form">
-    <h3>Ordem de Serviço</h3>
-    <form (ngSubmit)="onSubmit()">
-      <div class="grid">
-        <!-- Linha 1: Equipamento e Acessórios -->
-        <div class="field">
-          <label for="equipment">Equipamento</label>
-          <input type="text" id="equipment" pInputText [(ngModel)]="serviceOrder.equipment" name="equipment"/>
-        </div>
-        <div class="field">
-          <label for="accessories">Acessórios</label>
-          <input type="text" id="accessories" pInputText [(ngModel)]="serviceOrder.accessories" name="accessories"/>
-        </div>
-  
-        <!-- Linha 2: Queixa do Cliente e Descrição -->
-        <div class="field">
-          <label for="complaint">Queixa do Cliente</label>
-          <textarea id="complaint" pInputTextarea [(ngModel)]="serviceOrder.complaint" name="complaint"></textarea>
-        </div>
-        <div class="field">
-          <label for="description">Descrição</label>
-          <textarea id="description" pInputTextarea [(ngModel)]="serviceOrder.description" name="description"></textarea>
-        </div>
-  
-        <!-- Linha 3: Condição e Número de Série -->
-        <div class="field">
-          <label for="condition">Condição</label>
-          <textarea id="condition" pInputTextarea [(ngModel)]="serviceOrder.condition" name="condition"></textarea>
-        </div>
-        <div class="field">
-          <label for="serialNumber">Número de Série</label>
-          <input type="text" id="serialNumber" pInputText [(ngModel)]="serviceOrder.serialNumber" name="serialNumber"/>
-        </div>
-  
-        <!-- Data
-        <div class="field">
-          <label for="entryDate">Data de Entrada</label>
-          <input type="date" id="entryDate" pInputText [(ngModel)]="serviceOrder.entryDate" name="entryDate"/>
-        </div>
-      -->
-        <div class="field">
-          <label for="status">Status</label>
-          <input type="text" id="status" pInputText [(ngModel)]="serviceOrder.status" name="status"/>
-        </div>
 
-        <div class="field">
-          <label>Garantia</label>
+<p-card styleClass="shadow-3 m-5 text-indigo-800">
+    <div class="service-order-form">
+        <h3>Ordem de Serviço</h3>
+        <form (ngSubmit)="onSubmit()">
+            <div class="grid">
+                <!-- Linha 5: ID do Cliente -->
+                <div class="field">
+                    <label for="customerId">ID do Cliente</label>
+                    <div class="p-inputgroup">
+                        <input type="text" pInputText [(ngModel)]="searchTerm" (input)="onSearch()" name="customerSearch" placeholder="Digite o ID do cliente"/>
+                        <button type="button" pButton pRipple (click)="toggleDropdown()" icon="pi pi-search"></button>
+                    </div>
+                    <div *ngIf="showOptions">
+                        <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                            <ul style="margin: 0; padding: 0; list-style-type: none;">
+                                <li *ngFor="let option of filteredOptions" (click)="onOptionSelect(option)" style="padding: 10px; cursor: pointer;">
+                                    {{ option.name }}
+                                </li>
+                            </ul>
+                        </p-scrollPanel>
+                    </div>
+                </div>
 
-          <p-radioButton name="underWarranty" class="btnUnderWarranty" [value]="true" label="Sim" [(ngModel)]="serviceOrder.underWarranty" binary="true" (onChange)="onWarrantyChange(true)"></p-radioButton>
-          <p-radioButton name="underWarranty" class="btnUnderWarranty" [value]="false" label="Não" [(ngModel)]="serviceOrder.underWarranty" binary="true" (onChange)="onWarrantyChange(false)"></p-radioButton>
-          
-          <p-dropdown *ngIf="serviceOrder.underWarranty" [options]="previousOrders" [(ngModel)]="selectedOrder" name="previousOrder" placeholder="Selecione a Ordem de Serviço Anterior" optionLabel="description"></p-dropdown>
-          </div>
-  
-        <!-- Linha 5: ID do Cliente e Garantia -->
-        <div class="field">
-          <label for="customerId">ID do Cliente</label>
-          <div class="p-inputgroup">
-            <input type="text" pInputText [(ngModel)]="searchTerm" (input)="onSearch()" name="customerSearch" placeholder="Digite o ID do cliente"/>
-            <button type="button" pButton pRipple (click)="toggleDropdown()" icon="pi pi-search"></button>
-          </div>
-        </div>
-        
-        <!-- Exibição do cliente selecionado com opção para remover -->
-        <div *ngIf="selectedCustomer" class="selected-customer-display">
-          Cliente selecionado: {{selectedCustomer.name}} (ID: {{selectedCustomer.id}})
-          <button type="button" pButton icon="pi pi-times" (click)="removeSelectedCustomer()" class="p-button-rounded p-button-danger p-button-outlined"></button>
-        </div>
-        
-        <div *ngIf="showOptions" style="position: relative;">
-          <ul style="position: absolute; width: 100%; z-index: 1000; background: white; list-style-type: none; margin: 0; padding: 0;">
-            <li *ngFor="let option of filteredOptions" (click)="onOptionSelect(option)" style="padding: 10px; cursor: pointer;">
-              {{ option.name }}
-            </li>
-          </ul>
-        </div>
-        
-      </div>
-  
-      <!-- Botão de Envio -->
-      <p-button label="Enviar" type="submit"></p-button>
-    </form>
-  </div>
+                <!-- Exibição do cliente selecionado com opção para remover -->
+                <p-card *ngIf="selectedCustomer" styleClass="selected-customer-card">
+                    <ng-template pTemplate="header">
+                        Cliente Selecionado
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <div class="customer-info">
+                            {{selectedCustomer.name}} (ID: {{selectedCustomer.id}})
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <button type="button" pButton icon="pi pi-times" label="Remover" (click)="removeSelectedCustomer()" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                    </ng-template>
+                </p-card>
+
+                <!-- Linha 1: Equipamento e Acessórios -->
+                <div class="field">
+                    <label for="equipment">Equipamento</label>
+                    <input type="text" id="equipment" pInputText [(ngModel)]="serviceOrder.equipment" name="equipment"/>
+                </div>
+                <div class="field">
+                    <label for="accessories">Acessórios</label>
+                    <input type="text" id="accessories" pInputText [(ngModel)]="serviceOrder.accessories" name="accessories"/>
+                </div>
+                
+                <!-- Linha 2: Queixa do Cliente e Descrição -->
+                <div class="field">
+                    <label for="complaint">Queixa do Cliente</label>
+                    <textarea id="complaint" pInputTextarea [(ngModel)]="serviceOrder.complaint" name="complaint"></textarea>
+                </div>
+                <div class="field">
+                    <label for="description">Descrição</label>
+                    <textarea id="description" pInputTextarea [(ngModel)]="serviceOrder.description" name="description"></textarea>
+                </div>
+                
+                <!-- Linha 3: Condição e Número de Série -->
+                <div class="field">
+                    <label for="condition">Condição</label>
+                    <textarea id="condition" pInputTextarea [(ngModel)]="serviceOrder.condition" name="condition"></textarea>
+                </div>
+                <div class="field">
+                    <label for="serialNumber">Número de Série</label>
+                    <input type="text" id="serialNumber" pInputText [(ngModel)]="serviceOrder.serialNumber" name="serialNumber"/>
+                </div>
+                
+                <div class="field">
+                    <label for="status">Status</label>
+                    <input type="text" id="status" pInputText [(ngModel)]="serviceOrder.status" name="status"/>
+                </div>
+                
+                <div class="field">
+                    <label>Garantia</label>
+                    <p-radioButton name="underWarranty" class="btnUnderWarranty" [value]="true" label="Sim" [(ngModel)]="serviceOrder.underWarranty" (onClick)="onWarrantyYesClick()" [disabled]="!isWarrantyYesEnabled"></p-radioButton>
+                    <p-radioButton name="underWarranty" class="btnUnderWarranty" [value]="false" label="Não" [(ngModel)]="serviceOrder.underWarranty" binary="true" [disabled]="!isWarrantyYesEnabled"></p-radioButton>
+                    <p-dropdown *ngIf="serviceOrder.underWarranty" [options]="previousOrders" [(ngModel)]="selectedOrder" name="previousOrder" placeholder="Selecione a Ordem de Serviço Anterior" optionLabel="id" [disabled]="!isWarrantyYesEnabled"></p-dropdown>
+                </div>
+            </div>
+            
+            <!-- Botão de Envio -->
+            <p-button label="Enviar" type="submit"></p-button>
+        </form>
+    </div>
 </p-card>
