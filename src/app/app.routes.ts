@@ -41,5 +41,10 @@ export const routes: Routes = [
     path: 'navigator',
     loadComponent: () => import('./components/navigator-hub/navigator-hub.component').then(m => m.NavigatorHubComponent),
     canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
-  }
+  },
+  {
+    path: 'service-orders',
+    loadComponent: () => import('./components/service-order/service-orders-list/service-orders-list.component').then(m => m.ServiceOrdersListComponent),
+    canActivate: [AuthGuard] // Supondo que você tenha um AuthGuard
+  },
 ];

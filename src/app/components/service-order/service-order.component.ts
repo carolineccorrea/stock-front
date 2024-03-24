@@ -52,6 +52,8 @@ export class ServiceOrderComponent {
     serialNumber: '',
     condition: '',
     customerId: '',
+    brand: '',
+    model: '',
     underWarranty: false
   };
 

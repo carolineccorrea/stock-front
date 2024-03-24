@@ -14,6 +14,8 @@ export interface ServiceOrder {
   serialNumber: string;
   condition: string;
   customerId: string;
+  brand: string;
+  model: string;
   underWarranty: boolean;
 }
 
