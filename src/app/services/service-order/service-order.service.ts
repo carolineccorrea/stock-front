@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { ServiceOrderResponse } from '../../models/interfaces/service-order/ServiceOrderResponse';
 
 export interface ServiceOrder {
   equipment: string;
@@ -49,8 +50,8 @@ export class ServiceOrderService {
     );
   }
 
-  getServiceOrdersByCustomerId(customerId: string): Observable<ServiceOrder[]> {
-    return this.http.get<ServiceOrder[]>(
+  getServiceOrdersByCustomerId(customerId: string): Observable<ServiceOrderResponse[]> {
+    return this.http.get<ServiceOrderResponse[]>(
       `${this.API_URL}/serviceorders/customer?customerId=${customerId}`,
       this.httpOptions
     );
