@@ -23,8 +23,8 @@
   width: 80px;
   height: 80px;
   object-fit: contain;
-  margin: 0 auto; /* Centraliza a imagem horizontalmente */
-  display: block; /* Garante que a imagem seja tratada como um bloco */
+  margin: 0 auto;
+  display: block;
 }
 
 /* Título do card */
@@ -35,5 +35,5 @@
 }
 
 .navigator-card:hover {
-  transform: scale(1.1); /* Efeito ao passar o mouse */
+  transform: scale(1.1);
 }
