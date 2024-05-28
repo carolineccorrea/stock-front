@@ -7,9 +7,9 @@
         <h3>Ordem de Serviço</h3>
         <form (ngSubmit)="onSubmit()">
             <div class="grid">
-                <div class="field">
+                <div>
                     <label>ID do Cliente</label>
-                    <p-autoComplete [(ngModel)]="selectedCustomer" [suggestions]="filteredCustomers" 
+                    <p-autoComplete class="field" [(ngModel)]="selectedCustomer" [suggestions]="filteredCustomers" 
                         (completeMethod)="onSearch($event)" field="name" 
                         placeholder="Digite para buscar um cliente..." [dropdown]="true" 
                         (onSelect)="onOptionSelect($event.value)" [forceSelection]="true" 
