@@ -4,4 +4,7 @@ export interface Customer {
   email?: string;
   cpf?: string;
   cnpj?: string;
+  address?: string;
+  dateBirth?: string;
+  phone?: string
 }

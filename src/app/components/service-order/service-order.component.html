@@ -16,28 +16,10 @@
                         name="selectedCustomer"></p-autoComplete>                
                 </div>
 
-                <p-card *ngIf="selectedCustomer" styleClass="selected-customer-card">
-                    <ng-template pTemplate="header">
-                        Cliente Selecionado
-                    </ng-template>
-                    <ng-template pTemplate="content">
-                        <div class="customer-info">
-                            <label>Nome: </label>{{ selectedCustomer.name }} <br>
-                            <label>CPF: </label>{{ selectedCustomer.cpf }} <br>
-                            <label>Endereço: </label>{{ selectedCustomer.address }} <br>
-                            <label>Telefone: </label>{{ selectedCustomer.phone }} <br>
-                            <label>Data de Nascimento: </label>{{ selectedCustomer.dateBirth }} <br>
-                             (ID: {{ selectedCustomer.id }})
-                        </div>
-                    </ng-template>
-                    <ng-template pTemplate="footer">
-                        <button type="button" pButton icon="pi pi-times" label="Remover" 
-                            (click)="removeSelectedCustomer()" class="p-button-rounded p-button-danger p-button-outlined"></button>
-                            
-                            <button type="button" pButton label="Atualizar Cadastro" 
-                            class="p-button-rounded p-button-primary p-button-outlined"></button>
-                    </ng-template>
-                </p-card>
+            <app-selected-customer-card 
+                [selectedCustomer]="selectedCustomer" 
+                (customerRemoved)="removeSelectedCustomer()">
+              </app-selected-customer-card>
 
                 <div class="field">
                     <label for="equipment">Equipamento</label>

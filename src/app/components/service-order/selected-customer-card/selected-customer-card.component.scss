@@ -1,0 +1,11 @@
+/* Estilização específica para o cartão do cliente selecionado */
+.selected-customer-card .p-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .selected-customer-card .p-card-footer {
+    text-align: right;
+  }
+  
