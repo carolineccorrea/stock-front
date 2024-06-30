@@ -13,6 +13,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ToolbarNavigationComponent } from '../../shared/toolbar-navigation/toolbar-navigation.component';
+import { SelectedCustomerCardComponent } from './selected-customer-card/selected-customer-card.component';
 
 @Component({
   selector: 'app-service-order',
@@ -29,6 +30,7 @@ import { ToolbarNavigationComponent } from '../../shared/toolbar-navigation/tool
     ToastModule,
     AutoCompleteModule,
     ScrollPanelModule,
+    SelectedCustomerCardComponent,
     ToolbarNavigationComponent
   ],
   providers: [MessageService, ServiceOrderService, CustomerService],
